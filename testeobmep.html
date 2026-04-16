@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quiz Matemática e Lógica</title>
+
+<style>
+body {
+  font-family: Arial;
+  background: #0f172a;
+  color: #e2e8f0;
+  padding: 20px;
+}
+.container {
+  max-width: 900px;
+  margin: auto;
+  background: #1e293b;
+  padding: 20px;
+  border-radius: 16px;
+}
+.challenge {
+  margin: 15px 0;
+  padding: 15px;
+  background: #334155;
+  border-radius: 12px;
+}
+input {
+  padding: 8px;
+  border-radius: 8px;
+  border: none;
+  width: 100%;
+}
+button {
+  margin-top: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  background: #22c55e;
+  color: white;
+  cursor: pointer;
+}
+.hidden { display:none; }
+#timer {
+  font-size: 20px;
+  text-align: center;
+  margin-bottom: 10px;
+}
+textarea {
+  width: 100%;
+  height: 200px;
+  margin-top: 10px;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🧠 Quiz Matemática e Lógica</h1>
+<div id="timer">⏱️ Tempo: 00:00</div>
+
+<div id="start" class="challenge">
+  <input id="nome" placeholder="Nome do grupo/aluno">
+  <button onclick="start()">Iniciar</button>
+</div>
+
+<div id="quiz" class="hidden">
+
+<div class="challenge"><p>1. Gatos e ratos?</p><input id="q1"></div>
+<div class="challenge"><p>2. Primo par?</p><input id="q2"></div>
+<div class="challenge"><p>3. Bola?</p><input id="q3"></div>
+<div class="challenge"><p>4. Fibonacci?</p><input id="q4"></div>
+<div class="challenge"><p>5. Dia em 100 dias?</p><input id="q5"></div>
+<div class="challenge"><p>6. Número de ouro?</p><input id="q6"></div>
+<div class="challenge"><p>7. Probabilidade?</p><input id="q7"></div>
+<div class="challenge"><p>8. Expressão?</p><input id="q8"></div>
+<div class="challenge"><p>9. Caracol?</p><input id="q9"></div>
+<div class="challenge"><p>10. Polígono?</p><input id="q10"></div>
+
+<button onclick="finalizar()">Finalizar</button>
+
+</div>
+
+<div id="resultado" class="hidden">
+  <h2>📊 Relatório</h2>
+  <textarea id="relatorio"></textarea>
+  <button onclick="copiar()">📋 Copiar Relatório</button>
+</div>
+
+</div>
+
+<script>
+let tempo = 0;
+let intervalo;
+let nome = "";
+
+function start(){
+  nome = document.getElementById("nome").value;
+  if(nome===""){ alert("Digite o nome"); return; }
+
+  document.getElementById("start").classList.add("hidden");
+  document.getElementById("quiz").classList.remove("hidden");
+
+  intervalo = setInterval(()=>{
+    tempo++;
+    let m = String(Math.floor(tempo/60)).padStart(2,'0');
+    let s = String(tempo%60).padStart(2,'0');
+    document.getElementById("timer").innerText = `⏱️ Tempo: ${m}:${s}`;
+  },1000);
+}
+
+function normalizar(t){
+  return t.toLowerCase().trim();
+}
+
+function finalizar(){
+  clearInterval(intervalo);
+
+  let respostas = {
+    q1:"3 minutos",
+    q2:"2",
+    q3:"0,05",
+    q4:"somar",
+    q5:"sábado",
+    q6:"proporção",
+    q7:"70",
+    q8:"5",
+    q9:"8",
+    q10:"icoságono"
+  };
+
+  let acertos = 0;
+  let texto = `📊 RELATÓRIO QUIZ\n\n`;
+  texto += `Grupo: ${nome}\n`;
+  texto += `Tempo: ${document.getElementById("timer").innerText}\n\n`;
+
+  for(let q in respostas){
+    let resp = document.getElementById(q).value;
+    let ok = normalizar(resp).includes(respostas[q]);
+    if(ok) acertos++;
+
+    texto += `${q.toUpperCase()}: ${resp} ${ok ? "✅" : "❌"}\n`;
+  }
+
+  texto += `\nTotal de acertos: ${acertos}/10`;
+
+  document.getElementById("quiz").classList.add("hidden");
+  document.getElementById("resultado").classList.remove("hidden");
+  document.getElementById("relatorio").value = texto;
+
+  localStorage.setItem(nome, texto);
+}
+
+function copiar(){
+  let txt = document.getElementById("relatorio");
+  txt.select();
+  document.execCommand("copy");
+  alert("Relatório copiado!");
+}
+</script>
+
+</body>
+</html>

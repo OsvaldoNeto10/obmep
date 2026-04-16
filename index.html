@@ -51,6 +51,9 @@ textarea {
   height: 200px;
   margin-top: 10px;
 }
+.opcao {
+  margin: 5px 0;
+}
 </style>
 </head>
 
@@ -68,73 +71,79 @@ textarea {
 
 <div id="quiz" class="hidden">
 
+<!-- Q1 -->
 <div class="challenge" id="c1">
-<p>1. Os Gatos e os Ratos<br>
-Se três gatos pegam três ratos em três minutos, quanto tempo levarão cem gatos para pegar cem ratos?</p>
-<input id="q1">
+<p>1. Se três gatos pegam três ratos em três minutos, quanto tempo levarão cem gatos para pegar cem ratos?</p>
+<input id="q1" onkeypress="enter(event,1)">
 <button onclick="next(1)">Responder</button>
 </div>
 
+<!-- Q2 (multipla escolha) -->
 <div class="challenge hidden" id="c2">
-<p>2. O Único Primo Par<br>
-Qual é o único número primo que também é um número par?</p>
-<input id="q2">
+<p>2. Qual é o único número primo par?</p>
+
+<div class="opcao"><input type="radio" name="q2" value="1"> 1</div>
+<div class="opcao"><input type="radio" name="q2" value="2"> 2</div>
+<div class="opcao"><input type="radio" name="q2" value="4"> 4</div>
+
 <button onclick="next(2)">Responder</button>
 </div>
 
+<!-- Q3 -->
 <div class="challenge hidden" id="c3">
-<p>3. O Bastão e a Bola<br>
-Um bastão e uma bola custam juntos $1,10. O bastão custa $1,00 a mais que a bola. Quanto custa a bola?</p>
-<input id="q3">
+<p>3. Um bastão e uma bola custam juntos $1,10. O bastão custa $1,00 a mais que a bola. Quanto custa só a bola? </p>
+<input id="q3" onkeypress="enter(event,3)">
 <button onclick="next(3)">Responder</button>
 </div>
 
+<!-- Q4 -->
 <div class="challenge hidden" id="c4">
-<p>4. Sequência de Fibonacci<br>
-Sobre a sequência de Fibonacci, qual é a regra para encontrar o próximo número?</p>
-<input id="q4">
+<p>4. A Regra da sequência de Fibonacci é somar dois números anteriores para gerar o próximo, ela comça com 0, 1, 1, 2, 3, 5, ... . Qual seria o 11º termo? </p>
+<input id="q4" onkeypress="enter(event,4)">
 <button onclick="next(4)">Responder</button>
 </div>
 
+<!-- Q5 (multipla escolha) -->
 <div class="challenge hidden" id="c5">
-<p>5. Dias da Semana<br>
-Se hoje é quinta-feira, que dia da semana será daqui a exatamente 100 dias?</p>
-<input id="q5">
+<p>5. Se hoje é quinta-feira, que dia será em 100 dias?</p>
+
+<div class="opcao"><input type="radio" name="q5" value="quinta"> Quinta</div>
+<div class="opcao"><input type="radio" name="q5" value="Segunda"> Segunda</div>
+<div class="opcao"><input type="radio" name="q5" value="sexta"> Sexta</div>
+<div class="opcao"><input type="radio" name="q5" value="sábado"> Sábado</div>
+<div class="opcao"><input type="radio" name="q5" value="domingo"> Domingo</div>
+
 <button onclick="next(5)">Responder</button>
 </div>
 
+<!-- resto simplificado -->
 <div class="challenge hidden" id="c6">
-<p>6. O Número de Ouro<br>
-O que o número de ouro representa em matemática?</p>
-<input id="q6">
+<p>6. Se em uma aeronave tinham 4 romanos e 1 americano. Qual era o nome da aeromoça?</p>
+<input id="q6" onkeypress="enter(event,6)">
 <button onclick="next(6)">Responder</button>
 </div>
 
 <div class="challenge hidden" id="c7">
-<p>7. Paradoxo do Aniversário<br>
-Em uma sala há 30 pessoas. Qual é a probabilidade aproximada de que pelo menos duas façam aniversário no mesmo dia?</p>
-<input id="q7">
+<p>7. Numa sala com  366 pessoas, qual a probabilidade de 2 pessoas fazerem aniversário no mesmo dia? </p>
+<input id="q7" onkeypress="enter(event,7)">
 <button onclick="next(7)">Responder</button>
 </div>
 
 <div class="challenge hidden" id="c8">
-<p>8. Expressão Numérica<br>
-Qual é o valor da expressão: 2 + 2 x 2 - 2 / 2?</p>
-<input id="q8">
+<p>8. 2 + 2 x 2 - 2 / 2?</p>
+<input id="q8" onkeypress="enter(event,8)">
 <button onclick="next(8)">Responder</button>
 </div>
 
 <div class="challenge hidden" id="c9">
-<p>9. O Caracol no Poço<br>
-Um caracol está no fundo de um poço de 10 metros...</p>
-<input id="q9">
+<p>9. Um caracol está no fundo de um poço de 10 metros. A cada dia ele sobe 3 metros e a cada noite escorrega 2 metros. Em quantos dias ele sairá do poço? </p>
+<input id="q9" onkeypress="enter(event,9)">
 <button onclick="next(9)">Responder</button>
 </div>
 
 <div class="challenge hidden" id="c10">
-<p>10. Polígono de 20 lados<br>
-Como se chama o polígono que possui 20 lados?</p>
-<input id="q10">
+<p>10. Qual nome se dá a um polígono de 20 lados?</p>
+<input id="q10" onkeypress="enter(event,10)">
 <button onclick="finalizar()">Finalizar</button>
 </div>
 
@@ -143,7 +152,8 @@ Como se chama o polígono que possui 20 lados?</p>
 <div id="resultado" class="hidden">
   <h2>📊 Relatório</h2>
   <textarea id="relatorio"></textarea>
-  <button onclick="copiar()">📋 Copiar Relatório</button>
+  <button onclick="copiar()">📋 Copiar</button>
+  <button onclick="reiniciar()">🔄 Reiniciar Quiz</button>
 </div>
 
 </div>
@@ -168,9 +178,24 @@ function start(){
   },1000);
 }
 
+function enter(e,n){
+  if(e.key === "Enter"){
+    next(n);
+  }
+}
+
+function getResposta(n){
+  if(n===2 || n===5){
+    let op = document.querySelector(`input[name="q${n}"]:checked`);
+    return op ? op.value : "";
+  }
+  return document.getElementById("q"+n).value;
+}
+
 function next(n){
-  let atual = document.getElementById("q"+n).value;
-  if(atual.trim() === ""){
+  let resp = getResposta(n);
+
+  if(resp.trim() === ""){
     alert("Responda antes de continuar!");
     return;
   }
@@ -186,26 +211,26 @@ function finalizar(){
   clearInterval(intervalo);
 
   let respostas = {
-    q1:"3 minutos",
-    q2:"2",
-    q3:"0,05",
-    q4:"somar",
-    q5:"sábado",
-    q6:"proporção",
-    q7:"70",
-    q8:"5",
-    q9:"8",
-    q10:"icoságono"
+    1:"3 minutos",
+    2:"2",
+    3:"0,05",
+    4:"55",
+    5:"sábado",
+    6:"ivone",
+    7:"100",
+    8:"5",
+    9:"8",
+    10:"icoságono"
   };
 
   let acertos = 0;
   let texto = `📊 RELATÓRIO\n\nGrupo: ${nome}\nTempo: ${document.getElementById("timer").innerText}\n\n`;
 
-  for(let q in respostas){
-    let resp = document.getElementById(q).value;
-    let ok = normalizar(resp).includes(respostas[q]);
+  for(let i=1;i<=10;i++){
+    let resp = getResposta(i);
+    let ok = normalizar(resp).includes(respostas[i]);
     if(ok) acertos++;
-    texto += `${q}: ${resp} ${ok ? "✅" : "❌"}\n`;
+    texto += `Q${i}: ${resp} ${ok ? "✅" : "❌"}\n`;
   }
 
   texto += `\nTotal: ${acertos}/10`;
@@ -220,6 +245,10 @@ function copiar(){
   txt.select();
   document.execCommand("copy");
   alert("Copiado!");
+}
+
+function reiniciar(){
+  location.reload();
 }
 </script>
 

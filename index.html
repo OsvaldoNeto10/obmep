@@ -68,18 +68,75 @@ textarea {
 
 <div id="quiz" class="hidden">
 
-<div class="challenge"><p>1. Gatos e ratos?</p><input id="q1"></div>
-<div class="challenge"><p>2. Primo par?</p><input id="q2"></div>
-<div class="challenge"><p>3. Bola?</p><input id="q3"></div>
-<div class="challenge"><p>4. Fibonacci?</p><input id="q4"></div>
-<div class="challenge"><p>5. Dia em 100 dias?</p><input id="q5"></div>
-<div class="challenge"><p>6. Número de ouro?</p><input id="q6"></div>
-<div class="challenge"><p>7. Probabilidade?</p><input id="q7"></div>
-<div class="challenge"><p>8. Expressão?</p><input id="q8"></div>
-<div class="challenge"><p>9. Caracol?</p><input id="q9"></div>
-<div class="challenge"><p>10. Polígono?</p><input id="q10"></div>
+<div class="challenge" id="c1">
+<p>1. Os Gatos e os Ratos<br>
+Se três gatos pegam três ratos em três minutos, quanto tempo levarão cem gatos para pegar cem ratos?</p>
+<input id="q1">
+<button onclick="next(1)">Responder</button>
+</div>
 
+<div class="challenge hidden" id="c2">
+<p>2. O Único Primo Par<br>
+Qual é o único número primo que também é um número par?</p>
+<input id="q2">
+<button onclick="next(2)">Responder</button>
+</div>
+
+<div class="challenge hidden" id="c3">
+<p>3. O Bastão e a Bola<br>
+Um bastão e uma bola custam juntos $1,10. O bastão custa $1,00 a mais que a bola. Quanto custa a bola?</p>
+<input id="q3">
+<button onclick="next(3)">Responder</button>
+</div>
+
+<div class="challenge hidden" id="c4">
+<p>4. Sequência de Fibonacci<br>
+Sobre a sequência de Fibonacci, qual é a regra para encontrar o próximo número?</p>
+<input id="q4">
+<button onclick="next(4)">Responder</button>
+</div>
+
+<div class="challenge hidden" id="c5">
+<p>5. Dias da Semana<br>
+Se hoje é quinta-feira, que dia da semana será daqui a exatamente 100 dias?</p>
+<input id="q5">
+<button onclick="next(5)">Responder</button>
+</div>
+
+<div class="challenge hidden" id="c6">
+<p>6. O Número de Ouro<br>
+O que o número de ouro representa em matemática?</p>
+<input id="q6">
+<button onclick="next(6)">Responder</button>
+</div>
+
+<div class="challenge hidden" id="c7">
+<p>7. Paradoxo do Aniversário<br>
+Em uma sala há 30 pessoas. Qual é a probabilidade aproximada de que pelo menos duas façam aniversário no mesmo dia?</p>
+<input id="q7">
+<button onclick="next(7)">Responder</button>
+</div>
+
+<div class="challenge hidden" id="c8">
+<p>8. Expressão Numérica<br>
+Qual é o valor da expressão: 2 + 2 x 2 - 2 / 2?</p>
+<input id="q8">
+<button onclick="next(8)">Responder</button>
+</div>
+
+<div class="challenge hidden" id="c9">
+<p>9. O Caracol no Poço<br>
+Um caracol está no fundo de um poço de 10 metros...</p>
+<input id="q9">
+<button onclick="next(9)">Responder</button>
+</div>
+
+<div class="challenge hidden" id="c10">
+<p>10. Polígono de 20 lados<br>
+Como se chama o polígono que possui 20 lados?</p>
+<input id="q10">
 <button onclick="finalizar()">Finalizar</button>
+</div>
 
 </div>
 
@@ -111,6 +168,16 @@ function start(){
   },1000);
 }
 
+function next(n){
+  let atual = document.getElementById("q"+n).value;
+  if(atual.trim() === ""){
+    alert("Responda antes de continuar!");
+    return;
+  }
+
+  document.getElementById("c"+(n+1)).classList.remove("hidden");
+}
+
 function normalizar(t){
   return t.toLowerCase().trim();
 }
@@ -132,32 +199,27 @@ function finalizar(){
   };
 
   let acertos = 0;
-  let texto = `📊 RELATÓRIO QUIZ\n\n`;
-  texto += `Grupo: ${nome}\n`;
-  texto += `Tempo: ${document.getElementById("timer").innerText}\n\n`;
+  let texto = `📊 RELATÓRIO\n\nGrupo: ${nome}\nTempo: ${document.getElementById("timer").innerText}\n\n`;
 
   for(let q in respostas){
     let resp = document.getElementById(q).value;
     let ok = normalizar(resp).includes(respostas[q]);
     if(ok) acertos++;
-
-    texto += `${q.toUpperCase()}: ${resp} ${ok ? "✅" : "❌"}\n`;
+    texto += `${q}: ${resp} ${ok ? "✅" : "❌"}\n`;
   }
 
-  texto += `\nTotal de acertos: ${acertos}/10`;
+  texto += `\nTotal: ${acertos}/10`;
 
   document.getElementById("quiz").classList.add("hidden");
   document.getElementById("resultado").classList.remove("hidden");
   document.getElementById("relatorio").value = texto;
-
-  localStorage.setItem(nome, texto);
 }
 
 function copiar(){
   let txt = document.getElementById("relatorio");
   txt.select();
   document.execCommand("copy");
-  alert("Relatório copiado!");
+  alert("Copiado!");
 }
 </script>
 
